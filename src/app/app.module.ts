@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { WeektableComponent } from './weektable/weektable.component';
 import { DateService } from './date.service';
 import { HabitsService } from './habits.service';
+import { HabitsProgressService } from './habits-progress.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { HabitsService } from './habits.service';
   imports: [
     BrowserModule
   ],
-  providers: [DateService, HabitsService],
+  providers: [DateService, HabitsService, HabitsProgressService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

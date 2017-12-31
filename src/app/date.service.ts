@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import moment = require('moment');
+import { Moment } from 'moment';
 
 @Injectable()
 export class DateService {
 
   constructor() { }
 
-  currentWeek(): Array<moment.Moment> {
+  currentWeek(): Array<Moment> {
     const weekDays: Array<moment.Moment> = [];
     let dayOfWeek = this.startOfWeek();
     weekDays.push(dayOfWeek.clone());
@@ -17,6 +18,10 @@ export class DateService {
     return weekDays;
   }
 
+  today(): Moment {
+    return moment().startOf('day');
+  }
+
   private startOfWeek(): moment.Moment {
     let day = moment().startOf('day');
     while (day.isoWeekday() != 1) {
@@ -24,4 +29,4 @@ export class DateService {
     }
     return day;
   }
-  }
+}

@@ -2,7 +2,7 @@
   <thead class="thead-dark">
   <tr>
     <th scope="col" class="col-md-4">Habit</th>
-    <th scope="col" *ngFor="let day of weekDays">
+    <th scope="col" *ngFor="let day of weekDays" [ngClass]="{'today': day.diff(today) === 0}">
       <span class="note">{{day.format('D.M.')}}</span>
       <br/>
       {{day.format('dd')}}
@@ -12,7 +12,10 @@
   <tbody>
   <tr *ngFor="let habit of habits">
     <td>{{habit.name}}</td>
-    <td scope="col" *ngFor="let day of weekDays">
+    <td scope="col" *ngFor="let day of weekDays"
+        [ngClass]="{'failed': getHabitProgress(habit, day) < habit.count && day.diff(today) !== 0,
+                    'success': getHabitProgress(habit, day) >= habit.count && day.diff(today) !== 0,
+                    'today': day.diff(today) === 0}">
       {{getHabitProgress(habit, day)}}<span class="goal"> / {{habit.count}}</span>
     </td>
   </tr>

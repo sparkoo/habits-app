@@ -3,7 +3,7 @@ import { Habit} from './habit.model';
 
 @Injectable()
 export class HabitsService {
-  habitsChanged: EventEmitter<Array<Habit>> = new EventEmitter<Array<Habit>>;
+  habitsChanged: EventEmitter<Array<Habit>> = new EventEmitter<Array<Habit>>();
   habits: Array<Habit> = [];
 
   constructor() {
