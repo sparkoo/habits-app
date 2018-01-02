@@ -13,29 +13,32 @@ import { HabitsProgressService } from '../habits-progress.service';
 export class WeektableComponent implements OnInit {
   weekDays: Array<Moment>;
   habits: Array<Habit>;
-  habitsProgress: Map<Habit, Map<number, HabitDay>> = new Map();
+  habitsProgress: Map<number, Map<number, HabitDay>> = new Map();
   today: Moment = this.dateService.today();
 
   constructor(private dateService: DateService,
               private habitsService: HabitsService,
               private habitsProgressService: HabitsProgressService) {
-    this.habitsProgress = this.habitsProgressService.habitProgress;
-    console.log(this.habitsProgress);
   }
 
   ngOnInit() {
     this.weekDays = this.dateService.currentWeek();
     this.habits = this.habitsService.habits;
     this.habitsService.habitsChanged.subscribe(habits => this.habits = habits);
+    this.habitsProgress = this.habitsProgressService.habitProgress;
   }
 
   getHabitProgress(habit: Habit, day: Moment): string {
-    if (this.habitsProgress.has(habit)) {
-      const habitProgress: Map<number, HabitDay> = this.habitsProgress.get(habit);
+    if (this.habitsProgress.has(habit.id)) {
+      const habitProgress: Map<number, HabitDay> = this.habitsProgress.get(habit.id);
       if (habitProgress.has(day.unix())) {
         return String(habitProgress.get(day.unix()).accomplished);
       }
     }
     return '0';
+  }
+
+  saveEditable(habit: Habit, day: Moment, value: number) {
+    this.habitsProgressService.saveProgress(habit, day, value);
   }
 }

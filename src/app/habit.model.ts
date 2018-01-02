@@ -1,7 +1,8 @@
 import { Moment } from 'moment';
 
 export class Habit {
-  constructor(public name: string,
+  constructor(public id: number,
+              public name: string,
               public count: number) {}
 }
 

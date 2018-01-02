@@ -16,7 +16,10 @@
         [ngClass]="{'failed': getHabitProgress(habit, day) < habit.count && day.diff(today) !== 0,
                     'success': getHabitProgress(habit, day) >= habit.count && day.diff(today) !== 0,
                     'today': day.diff(today) === 0}">
-      {{getHabitProgress(habit, day)}}<span class="goal"> / {{habit.count}}</span>
+      <inline-editor type="number"
+                     [(ngModel)]="habitsProgress.get(habit.id).get(day.unix()).accomplished"
+                     (onSave)="saveEditable(habit, day, $event)"></inline-editor>
+      <span class="goal"> / {{habit.count}}</span>
     </td>
   </tr>
   </tbody>
