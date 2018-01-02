@@ -13,9 +13,9 @@
   <tr *ngFor="let habit of habits">
     <td>{{habit.name}}</td>
     <td scope="col" *ngFor="let day of weekDays"
-        [ngClass]="{'failed': getHabitProgress(habit, day) < habit.count && day.diff(today) !== 0,
-                    'success': getHabitProgress(habit, day) >= habit.count && day.diff(today) !== 0,
-                    'today': day.diff(today) === 0}">
+        [ngClass]="{'danger': getHabitProgress(habit, day) < habit.count && day.diff(today) !== 0,
+                    'success': getHabitProgress(habit, day) >= habit.count,
+                    'warning': getHabitProgress(habit, day) < habit.count && day.diff(today) === 0}">
       <inline-editor type="number"
                      [(ngModel)]="habitsProgress.get(habit.id).get(day.unix()).accomplished"
                      (onSave)="saveEditable(habit, day, $event)"></inline-editor>
