@@ -5,9 +5,11 @@ import { AppComponent } from './app.component';
 import { WeektableComponent } from './weektable/weektable.component';
 import { DateService } from './date.service';
 import { HabitsService } from './habits.service';
-import { HabitsProgressService } from './habits-progress.service';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -17,9 +19,11 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     InlineEditorModule,
-    FormsModule
+    FormsModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [DateService, HabitsService, HabitsProgressService],
+  providers: [DateService, HabitsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

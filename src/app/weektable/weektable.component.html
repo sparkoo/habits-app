@@ -2,7 +2,7 @@
   <thead class="thead-dark">
   <tr>
     <th scope="col" class="col-md-4">Habit</th>
-    <th scope="col" *ngFor="let day of weekDays" [ngClass]="{'today': day.diff(today) === 0}">
+    <th scope="col" *ngFor="let day of weekDays" [ngClass]="{'warning': day.diff(today) === 0}">
       <span class="note">{{day.format('D.M.')}}</span>
       <br/>
       {{day.format('dd')}}
@@ -11,16 +11,48 @@
   </thead>
   <tbody>
   <tr *ngFor="let habit of habits">
-    <td>{{habit.name}}</td>
+    <td>
+      <inline-editor type="text"
+                     size="20"
+                     [(ngModel)]="habit.name"
+                     (onSave)="saveHabitName(habit, $event)"></inline-editor>
+    </td>
     <td scope="col" *ngFor="let day of weekDays"
-        [ngClass]="{'danger': getHabitProgress(habit, day) < habit.count && day.diff(today) !== 0,
-                    'success': getHabitProgress(habit, day) >= habit.count,
-                    'warning': getHabitProgress(habit, day) < habit.count && day.diff(today) === 0}">
-      <inline-editor type="number"
-                     [(ngModel)]="habitsProgress.get(habit.id).get(day.unix()).accomplished"
-                     (onSave)="saveEditable(habit, day, $event)"></inline-editor>
-      <span class="goal"> / {{habit.count}}</span>
+        [ngClass]="{'danger': (!habit.progress[getKeyFromMoment(day)] || habit.progress[getKeyFromMoment(day)] < habit.goal) && day.diff(today) !== 0,
+                    'success': habit.progress[getKeyFromMoment(day)] && habit.progress[getKeyFromMoment(day)] >= habit.goal,
+                    'warning': (!habit.progress[getKeyFromMoment(day)] || habit.progress[getKeyFromMoment(day)] < habit.goal) && day.diff(today) === 0}">
+      <inline-editor *ngIf="habit.progress[getKeyFromMoment(day)]"
+                     type="number"
+                     [(ngModel)]="habit.progress[getKeyFromMoment(day)]"
+                     (onSave)="saveProgress(habit, day, $event)"></inline-editor>
+      <inline-editor *ngIf="!habit.progress[getKeyFromMoment(day)]"
+                     type="number"
+                     ngModel
+                     empty="0"
+                     value="0"
+                     (onSave)="saveProgress(habit, day, $event)"></inline-editor>
+
+      <span class="goal"> / {{habit.goal}}</span>
     </td>
   </tr>
   </tbody>
 </table>
+<div class="row">
+  <div class="col-md-6">
+    <h4>new habit</h4>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" id="newHabitText" placeholder="new habit text"
+               [(ngModel)]="newHabitText"/>
+      </div>
+      <div class="form-group col-md-4">
+        <input type="number" class="form-control" id="newHabitGoal" placeholder="1"
+               [(ngModel)]="newHabitGoal"/>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-success" (click)="newHabit()">add</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -15,9 +15,9 @@ a.c-inline-editor {
 .c-inline-editor.a.editable-empty,
 .c-inline-editor.a.editable-empty:hover,
 .c-inline-editor.a.editable-empty:focus {
-  font-style: italic;
-  color: #DD1144;
-  text-decoration: none;
+  /*font-style: italic;*/
+  /*color: #DD1144;*/
+  /*text-decoration: none;*/
 }
 
 .c-inline-editor.inlineEditForm {

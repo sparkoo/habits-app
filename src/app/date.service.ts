@@ -29,4 +29,8 @@ export class DateService {
     }
     return day;
   }
+
+  static getKeyFromMoment(moment: Moment): string {
+    return moment.format('YYYY-MM-DD');
+  }
 }
