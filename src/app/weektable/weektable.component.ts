@@ -14,8 +14,8 @@ export class WeektableComponent implements OnInit {
   weekDays: Array<Moment>;
   habits: Array<Habit> = [];
   today: Moment = this.dateService.today();
-  newHabitText = '1';
-  newHabitGoal = '';
+  newHabitText = '';
+  newHabitGoal = '1';
 
   constructor(private dateService: DateService,
               private habitsService: HabitsService) {
@@ -38,8 +38,6 @@ export class WeektableComponent implements OnInit {
 
   saveProgress(habit: Habit, day: Moment, value: number) {
     habit.progress[DateService.getKeyFromMoment(day)] = value;
-    console.log(value);
-    console.log(habit);
     this.habitsService.updateHabit(habit.id, habit);
   }
 
@@ -61,5 +59,9 @@ export class WeektableComponent implements OnInit {
 
   getKeyFromMoment(moment: Moment): string {
     return DateService.getKeyFromMoment(moment);
+  }
+
+  deleteHabit(habit: Habit) {
+    this.habitsService.deleteHabit(habit);
   }
 }

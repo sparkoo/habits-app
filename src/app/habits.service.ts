@@ -7,16 +7,13 @@ export class HabitsService {
   private readonly COLLECTION_PATH = 'habits';
 
   habitsChanged: EventEmitter<Map<string, Habit>> = new EventEmitter();
-  private habits: Map<string, Habit> = new Map();
   private habitsCollection: AngularFirestoreCollection<Habit>;
 
   constructor(private db: AngularFirestore) {
     this.habitsCollection = this.db.collection<Habit>(this.COLLECTION_PATH);
-    this.habitsChanged.next(this.habits);
   }
 
   createHabit(habit: Habit) {
-    const itemDoc = this.db.doc<Habit>(this.COLLECTION_PATH + '/' + habit.name);
     this.habitsCollection.add(habit)
       .then(insertedHabit => {
         habit.id = insertedHabit.id;
@@ -29,8 +26,6 @@ export class HabitsService {
   }
 
   updateHabit(habitId: string, habit: Habit) {
-    console.log(habit);
-    this.habits.set(habitId, habit);
     this.habitsCollection.doc(String(habitId))
       .update(habit)
       .catch(e => console.log(e));
@@ -42,10 +37,21 @@ export class HabitsService {
       this.db.collection('habits').valueChanges().subscribe((habits) => {
         const localHabits: Map<string, Habit> = new Map();
         habits.forEach(habit => localHabits.set(habit['id'],
-          {id: habit['id'], name: habit['name'], goal: habit['goal'], progress: habit['progress']}));
-        console.log(localHabits);
+          {
+            id: habit['id'],
+            name: habit['name'],
+            goal: habit['goal'],
+            progress: habit['progress']
+          }));
         resolve(localHabits);
       })
     })
+  }
+
+  deleteHabit(habit: Habit) {
+    this.habitsCollection.doc(habit.id)
+      .delete()
+      .then(_ => this.getHabits().then(habits => this.habitsChanged.next(habits)))
+      .catch(e => console.log(e));
   }
 }
