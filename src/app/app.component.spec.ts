@@ -7,6 +7,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
+import { HabitsService } from './habits.service';
+import { DateService } from './date.service';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,7 +19,10 @@ describe('AppComponent', () => {
       imports: [
         InlineEditorModule,
         FormsModule,
-      ]
+        AngularFirestoreModule,
+        AngularFireModule.initializeApp(environment.firebase)
+      ],
+      providers: [DateService, HabitsService]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
@@ -25,7 +30,7 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-  it(`should have as title 'app'`, async(() => {
+  it(`should have as title 'HabitsApp'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('HabitsApp');
