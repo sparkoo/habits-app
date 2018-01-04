@@ -8,6 +8,8 @@ import { DateService } from '../date.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../../environments/environment';
+import { AuthService } from '../auth/auth.service';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 describe('WeektableComponent', () => {
   let component: WeektableComponent;
@@ -20,9 +22,10 @@ describe('WeektableComponent', () => {
         InlineEditorModule,
         FormsModule,
         AngularFirestoreModule,
+        AngularFireAuthModule,
         AngularFireModule.initializeApp(environment.firebase)
       ],
-      providers: [DateService, HabitsService]
+      providers: [DateService, HabitsService, AuthService]
     })
       .compileComponents();
   }));

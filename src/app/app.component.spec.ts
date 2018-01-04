@@ -9,20 +9,25 @@ import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { HabitsService } from './habits.service';
 import { DateService } from './date.service';
+import { AuthService } from './auth/auth.service';
+import { AuthComponent } from './auth/auth.component';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        WeektableComponent
+        WeektableComponent,
+        AuthComponent
       ],
       imports: [
         InlineEditorModule,
         FormsModule,
         AngularFirestoreModule,
+        AngularFireAuthModule,
         AngularFireModule.initializeApp(environment.firebase)
       ],
-      providers: [DateService, HabitsService]
+      providers: [DateService, HabitsService, AuthService]
     }).compileComponents();
   }));
   it('should create the app', () => {
