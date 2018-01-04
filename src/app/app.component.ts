@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import moment = require('moment');
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,6 @@ import moment = require('moment');
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor() {
+  constructor(public authService: AuthService) {
   }
 }

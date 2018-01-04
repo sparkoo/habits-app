@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Habit } from './habit.model';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AuthService } from './auth/auth.service';
 
 @Injectable()
 export class HabitsService {
@@ -9,7 +10,8 @@ export class HabitsService {
   habitsChanged: EventEmitter<Map<string, Habit>> = new EventEmitter();
   private habitsCollection: AngularFirestoreCollection<Habit>;
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore,
+              private authService: AuthService) {
     this.habitsCollection = this.db.collection<Habit>(this.COLLECTION_PATH);
   }
 
@@ -34,17 +36,20 @@ export class HabitsService {
 
   getHabits(): Promise<Map<string, Habit>> {
     return new Promise<Map<string, Habit>>((resolve, reject) => {
-      this.db.collection('habits').valueChanges().subscribe((habits) => {
-        const localHabits: Map<string, Habit> = new Map();
-        habits.forEach(habit => localHabits.set(habit['id'],
-          {
-            id: habit['id'],
-            name: habit['name'],
-            goal: habit['goal'],
-            progress: habit['progress']
-          }));
-        resolve(localHabits);
-      })
+      this.db.collection('habits', ref => ref.where('userId', '==', this.authService.signedUser.id))
+        .valueChanges()
+        .subscribe((habits) => {
+          const localHabits: Map<string, Habit> = new Map();
+          habits.forEach(habit => localHabits.set(habit['id'],
+            {
+              id: habit['id'],
+              userId: habit['userId'],
+              name: habit['name'],
+              goal: habit['goal'],
+              progress: habit['progress']
+            }));
+          resolve(localHabits);
+        })
     })
   }
 

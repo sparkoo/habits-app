@@ -4,6 +4,7 @@ import { Habit } from '../habit.model';
 import { HabitsService } from '../habits.service';
 import { Moment } from 'moment';
 import { InlineEditorEvent } from '@qontu/ngx-inline-editor';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-weektable',
@@ -18,7 +19,8 @@ export class WeektableComponent implements OnInit {
   newHabitGoal = '1';
 
   constructor(private dateService: DateService,
-              private habitsService: HabitsService) {
+              private habitsService: HabitsService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -49,6 +51,7 @@ export class WeektableComponent implements OnInit {
   newHabit() {
     this.habitsService.createHabit({
       id: '',
+      userId: this.authService.signedUser.id,
       name: this.newHabitText,
       goal: +this.newHabitGoal,
       progress: {}
