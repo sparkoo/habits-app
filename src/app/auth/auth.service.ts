@@ -15,7 +15,6 @@ export class AuthService {
 
   private observeAuthState() {
     this.afAuth.authState.subscribe(user => {
-      console.log(user);
       if (user !== null) {
         this.signedUser = {
           id: user.uid,
@@ -31,15 +30,6 @@ export class AuthService {
 
   signIn() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(result => {
-        console.log(result);
-        this.signedUser = {
-          id: result.user.gid,
-          name: result.user.displayName,
-          email: result.user.email,
-          photoUrl: result.user.photoUrl
-        };
-      })
       .catch(e => console.log('err ==> ', e));
   }
 
