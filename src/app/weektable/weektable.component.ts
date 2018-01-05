@@ -56,18 +56,6 @@ export class WeektableComponent implements OnInit {
     this.habitsService.updateHabit(habit.id, habit);
   }
 
-  newHabit() {
-    this.habitsService.createHabit({
-      id: '',
-      userId: this.authService.signedUser.id,
-      name: this.newHabitText,
-      goal: +this.newHabitGoal,
-      progress: {}
-    });
-    this.newHabitText = '';
-    this.newHabitGoal = '1';
-  }
-
   newHabitSubmitted() {
     if (this.newHabitForm.valid) {
       this.habitsService.createHabit({
@@ -77,7 +65,7 @@ export class WeektableComponent implements OnInit {
         goal: +this.newHabitForm.get('newHabitGoal').value,
         progress: {}
       });
-      this.newHabitForm.get('newHabitText').setValue('');
+      this.newHabitForm.reset({newHabitText: '', newHabitGoal: '1'});
     }
   }
 

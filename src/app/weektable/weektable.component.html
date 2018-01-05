@@ -70,7 +70,7 @@
         </div>
       </div>
     </form>
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger" role="alert" *ngIf="newHabitForm.invalid && newHabitForm.touched">
       Invalid form!
     </div>
   </div>
