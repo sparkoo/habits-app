@@ -20,10 +20,7 @@ export class HabitsService {
       .then(insertedHabit => {
         habit.id = insertedHabit.id;
         insertedHabit.update(habit)
-          .then(_ => {
-            console.log('habit added: ', _);
-            this.getHabits().then(habits => this.habitsChanged.next(habits));
-          })
+          .then(() => this.getHabits().then(habits => this.habitsChanged.next(habits)))
       });
   }
 

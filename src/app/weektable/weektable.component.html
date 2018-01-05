@@ -58,7 +58,7 @@
 </div>
 <div class="row">
   <div class="col-md-6">
-    <form [formGroup]="newHabitForm" (ngSubmit)="newHabitSubmitted()">
+    <form novalidate [formGroup]="newHabitForm" (ngSubmit)="newHabitSubmitted()">
       <div class="form-row">
         <div class="form-group col-md-6">
           <input type="text" class="form-control" id="newHabitText" placeholder="new habit"

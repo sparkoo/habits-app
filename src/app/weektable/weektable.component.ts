@@ -39,8 +39,8 @@ export class WeektableComponent implements OnInit {
       });
 
     this.newHabitForm = new FormGroup({
-      'newHabitText': new FormControl('', [Validators.required]),
-      'newHabitGoal': new FormControl('1', [Validators.min(1)])
+      newHabitText: new FormControl('', Validators.required),
+      newHabitGoal: new FormControl('1', Validators.min(1))
     });
   }
 
