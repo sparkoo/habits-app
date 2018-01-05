@@ -1,11 +1,4 @@
+<app-signin *ngIf="!authService.signedIn()"></app-signin>
 <div class="container">
-  <div class="row">
-    <div class="col-md-8">
-      <h1>my habits</h1>
-    </div>
-    <div class="col-md-4">
-      <app-auth></app-auth>
-    </div>
-  </div>
   <app-weektable *ngIf="authService.signedIn()"></app-weektable>
 </div>

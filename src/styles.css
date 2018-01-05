@@ -1,3 +1,9 @@
+body {
+  background-size: cover;
+  background: url('/assets/background_read.jpg') no-repeat;
+}
+
+
 /* ngx-inline-editor */
 
 a.c-inline-editor {

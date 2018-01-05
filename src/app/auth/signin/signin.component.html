@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row justify-content-center mt-md-5">
+    <div class="col-md-12 text-center">
+      <h1>Polish up your habits</h1>
+    </div>
+  </div>
+  <div class="row justify-content-md-center mt-md-5">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h5>Sign In</h5>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-outline-dark btn-block"
+                  (click)="login()"
+                  *ngIf="!signedIn">
+            sign in with <i class="fa fa-google" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

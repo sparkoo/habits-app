@@ -10,15 +10,17 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AuthComponent } from './auth/auth.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthService } from './auth/auth.service';
+import { SigninComponent } from './auth/signin/signin.component';
+import { SignoutComponent } from './auth/signout/signout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WeektableComponent,
-    AuthComponent
+    SigninComponent,
+    SignoutComponent
   ],
   imports: [
     BrowserModule,
