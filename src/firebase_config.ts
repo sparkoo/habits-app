@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-  apiKey: '',
+  apiKey: 'AIzaSyAwTIRv4Mhr47toeydBNxxPcQHBodbI9HA',
   authDomain: 'myhabits-e0ba1.firebaseapp.com',
   databaseURL: 'https://myhabits-e0ba1.firebaseio.com',
   projectId: 'myhabits-e0ba1',
