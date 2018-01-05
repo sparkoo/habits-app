@@ -2,7 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { WeektableComponent } from './weektable/weektable.component';
 import { AngularFireModule } from 'angularfire2';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
 import { environment } from '../environments/environment';
@@ -10,7 +10,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HabitsService } from './habits.service';
 import { DateService } from './date.service';
 import { AuthService } from './auth/auth.service';
-import { AuthComponent } from './auth/auth.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { SignoutComponent } from './auth/signout/signout.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -18,11 +19,13 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         WeektableComponent,
-        AuthComponent
+        SigninComponent,
+        SignoutComponent
       ],
       imports: [
         InlineEditorModule,
         FormsModule,
+      ReactiveFormsModule,
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireModule.initializeApp(environment.firebase)
@@ -34,11 +37,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('my habits');
   });
 });
