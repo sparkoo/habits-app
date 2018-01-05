@@ -5,6 +5,7 @@ import { HabitsService } from '../habits.service';
 import { Moment } from 'moment';
 import { InlineEditorEvent } from '@qontu/ngx-inline-editor';
 import { AuthService } from '../auth/auth.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-weektable',
@@ -17,6 +18,8 @@ export class WeektableComponent implements OnInit {
   today: Moment = this.dateService.today();
   newHabitText = '';
   newHabitGoal = '1';
+
+  newHabitForm: FormGroup;
 
   constructor(private dateService: DateService,
               private habitsService: HabitsService,
@@ -36,6 +39,11 @@ export class WeektableComponent implements OnInit {
           this.habits.push(habit)
         })
       });
+
+    this.newHabitForm = new FormGroup({
+      'newHabitText': new FormControl('', [Validators.required]),
+      'newHabitGoal': new FormControl('1', [Validators.min(1)])
+    });
   }
 
   saveProgress(habit: Habit, day: Moment, value: number) {
@@ -58,6 +66,19 @@ export class WeektableComponent implements OnInit {
     });
     this.newHabitText = '';
     this.newHabitGoal = '1';
+  }
+
+  newHabitSubmitted() {
+    if (this.newHabitForm.valid) {
+      this.habitsService.createHabit({
+        id: '',
+        userId: this.authService.signedUser.id,
+        name: this.newHabitForm.get('newHabitText').value,
+        goal: +this.newHabitForm.get('newHabitGoal').value,
+        progress: {}
+      });
+      this.newHabitForm.get('newHabitText').setValue('');
+    }
   }
 
   getKeyFromMoment(moment: Moment): string {

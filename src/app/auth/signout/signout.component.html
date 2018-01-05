@@ -1,4 +1,4 @@
-<span class="username">{{user.email}}</span>
+<span class="username">{{authService.signedIn().email}}</span>
 <button class="btn btn-primary"
         (click)="logout()">
   logout

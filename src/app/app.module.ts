@@ -6,7 +6,7 @@ import { WeektableComponent } from './weektable/weektable.component';
 import { DateService } from './date.service';
 import { HabitsService } from './habits.service';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -26,6 +26,7 @@ import { SignoutComponent } from './auth/signout/signout.component';
     BrowserModule,
     InlineEditorModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase)

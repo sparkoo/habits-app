@@ -7,10 +7,10 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signout.component.scss']
 })
 export class SignoutComponent implements OnInit {
-
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.signedIn().email;
   }
 
   logout() {
