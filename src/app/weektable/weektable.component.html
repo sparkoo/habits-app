@@ -45,8 +45,11 @@
                          empty="0"
                          value="0"
                          (onSave)="saveProgress(habit, day, $event)"></inline-editor>
-
           <span class="goal"> / {{habit.goal}}</span>
+          <span class="pull-right increment-buttons">
+            <button class="btn btn-warning btn-sm" (click)="decrement(habit, day)"><i class="fa fa-minus" aria-hidden="true"></i></button>
+            <button class="btn btn-success btn-sm" (click)="increment(habit, day)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          </span>
         </td>
       </tr>
       </tbody>

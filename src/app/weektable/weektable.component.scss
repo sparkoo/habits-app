@@ -1,15 +1,15 @@
 th {
-  font-size: 13px;
+  font-size: .8rem;
   color: #878787;
 }
 
 .note {
-  font-size: 11px;
+  font-size: .7rem;
   color: #a8a8a8;
 }
 
 .goal {
-  font-size: 10px;
+  font-size: .7rem;
   color: darkgray;
   font-weight: bolder;
 }
@@ -20,4 +20,15 @@ table td {
 
 .table {
   background-color: whitesmoke;
+}
+
+.increment-buttons {
+  font-size: .75rem;
+  line-height: 1.5rem;
+}
+
+.btn-sm {
+  padding: .1rem .4em;
+  font-size: .75rem;
+  line-height: 1.3;
 }

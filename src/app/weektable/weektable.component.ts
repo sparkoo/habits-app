@@ -35,9 +35,7 @@ export class WeektableComponent implements OnInit {
     this.habitsService.habitsChanged
       .subscribe(habits => {
         this.habits = [];
-        habits.forEach(habit => {
-          this.habits.push(habit)
-        })
+        habits.forEach(habit => this.habits.push(habit));
       });
 
     this.newHabitForm = new FormGroup({
@@ -75,5 +73,19 @@ export class WeektableComponent implements OnInit {
 
   deleteHabit(habit: Habit) {
     this.habitsService.deleteHabit(habit);
+  }
+
+  increment(habit: Habit, day: Moment) {
+    if (habit.progress[DateService.getKeyFromMoment(day)]) {
+      this.saveProgress(habit, day, habit.progress[DateService.getKeyFromMoment(day)] + 1);
+    } else {
+      this.saveProgress(habit, day, 1);
+    }
+  }
+
+  decrement(habit: Habit, day: Moment) {
+    if (habit.progress[DateService.getKeyFromMoment(day)]) {
+      this.saveProgress(habit, day, habit.progress[DateService.getKeyFromMoment(day)] - 1);
+    }
   }
 }
