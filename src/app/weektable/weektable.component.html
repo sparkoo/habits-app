@@ -11,18 +11,21 @@
     <table class="table table-striped table-bordered table-hover">
       <thead>
       <tr>
-        <th scope="col">Habit</th>
+        <th class="thick-border-right" scope="col">Habit</th>
         <th scope="col" *ngFor="let day of weekDays"
             [ngClass]="{'table-warning': day.diff(today) === 0}">
           <span class="note">{{day.format('D.M.')}}</span>
           <br/>
           {{day.format('dd')}}
         </th>
+        <th class="thick-border-left" scope="col">
+          Weekly goal
+        </th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let habit of habits">
-        <td>
+        <td class="thick-border-right">
           <button class="btn btn-outline-danger btn-sm" (click)="deleteHabit(habit)">
             <i class="fa fa-trash-o" aria-hidden="true"></i>
           </button>
@@ -50,6 +53,10 @@
             <button class="btn btn-warning btn-sm" (click)="decrement(habit, day)"><i class="fa fa-minus" aria-hidden="true"></i></button>
             <button class="btn btn-success btn-sm" (click)="increment(habit, day)"><i class="fa fa-plus" aria-hidden="true"></i></button>
           </span>
+        </td>
+        <td class="thick-border-left">
+          <span class="uneditable-field-text"></span>{{weekProgress(habit)}}
+          <span class="goal"> / {{weekGoal(habit)}}</span>
         </td>
       </tr>
       </tbody>

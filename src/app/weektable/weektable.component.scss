@@ -32,3 +32,15 @@ table td {
   font-size: .75rem;
   line-height: 1.3;
 }
+
+.thick-border-right {
+  border-right: darkgray solid 2px;
+}
+
+.thick-border-left {
+  border-left: darkgray solid 2px;
+}
+
+.uneditable-field-text {
+  margin-left: 3px;
+}

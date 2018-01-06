@@ -88,4 +88,16 @@ export class WeektableComponent implements OnInit {
       this.saveProgress(habit, day, habit.progress[DateService.getKeyFromMoment(day)] - 1);
     }
   }
+
+  weekProgress(habit: Habit): number {
+    let weekProgress = 0;
+    this.dateService.currentWeek()
+      .filter(day => habit.progress[DateService.getKeyFromMoment(day)])
+      .forEach(day => weekProgress += habit.progress[DateService.getKeyFromMoment(day)]);
+    return weekProgress;
+  }
+
+  weekGoal(habit: Habit): number {
+    return habit.goal * 7;
+  }
 }
