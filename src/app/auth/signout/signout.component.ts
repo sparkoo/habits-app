@@ -10,7 +10,6 @@ export class SignoutComponent implements OnInit {
   constructor(public authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.signedIn().email;
   }
 
   logout() {

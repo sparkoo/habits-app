@@ -2,14 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WeektableComponent } from './weektable.component';
 import { InlineEditorModule } from '@qontu/ngx-inline-editor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HabitsService } from '../habits.service';
 import { DateService } from '../date.service';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/auth.service';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
+import { SignoutComponent } from '../auth/signout/signout.component';
+import { mockAngularFireAuth } from '../auth/signout/signout.component.spec';
 
 describe('WeektableComponent', () => {
   let component: WeektableComponent;
@@ -17,15 +19,18 @@ describe('WeektableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WeektableComponent],
+      declarations: [WeektableComponent, SignoutComponent],
       imports: [
         InlineEditorModule,
         FormsModule,
+        ReactiveFormsModule,
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireModule.initializeApp(environment.firebase)
       ],
-      providers: [DateService, HabitsService, AuthService]
+      providers: [DateService, HabitsService, AuthService,
+        { provide: AngularFireAuth, useValue: mockAngularFireAuth }
+      ]
     })
       .compileComponents();
   }));
