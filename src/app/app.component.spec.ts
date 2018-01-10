@@ -13,6 +13,7 @@ import { AuthService } from './auth/auth.service';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignoutComponent } from './auth/signout/signout.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { DragulaModule } from 'ng2-dragula/components/dragular.module';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -25,7 +26,8 @@ describe('AppComponent', () => {
       imports: [
         InlineEditorModule,
         FormsModule,
-      ReactiveFormsModule,
+        ReactiveFormsModule,
+        DragulaModule,
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireModule.initializeApp(environment.firebase)

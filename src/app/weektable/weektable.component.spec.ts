@@ -12,6 +12,7 @@ import { AuthService } from '../auth/auth.service';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { SignoutComponent } from '../auth/signout/signout.component';
 import { mockAngularFireAuth } from '../auth/signout/signout.component.spec';
+import { DragulaModule } from 'ng2-dragula/components/dragular.module';
 
 describe('WeektableComponent', () => {
   let component: WeektableComponent;
@@ -24,6 +25,7 @@ describe('WeektableComponent', () => {
         InlineEditorModule,
         FormsModule,
         ReactiveFormsModule,
+        DragulaModule,
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireModule.initializeApp(environment.firebase)
