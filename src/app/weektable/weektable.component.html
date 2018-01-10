@@ -23,16 +23,17 @@
         </th>
       </tr>
       </thead>
-      <tbody>
+      <tbody [dragula]="habits-bag" [dragulaModel]="habits">
       <tr *ngFor="let habit of habits">
         <td class="thick-border-right">
-          <button class="btn btn-outline-danger btn-sm" (click)="deleteHabit(habit)">
-            <i class="fa fa-trash-o" aria-hidden="true"></i>
-          </button>
+          <i class="fa fa-list-ul dnd-icon" aria-hidden="true"></i>
           <inline-editor type="text"
                          size="20"
                          [(ngModel)]="habit.name"
                          (onSave)="saveHabitName(habit, $event)"></inline-editor>
+          <button class="btn btn-outline-danger btn-sm pull-right delete-habit" (click)="deleteHabit(habit)">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
         </td>
         <td scope="col" *ngFor="let day of weekDays"
             [ngClass]="{'table-danger': (!habit.progress[getKeyFromMoment(day)] || habit.progress[getKeyFromMoment(day)] < habit.goal) && day.diff(today) !== 0,

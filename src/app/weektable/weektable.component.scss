@@ -30,7 +30,7 @@ table td {
 .btn-sm {
   padding: .1rem .4em;
   font-size: .75rem;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 .thick-border-right {
@@ -43,4 +43,12 @@ table td {
 
 .uneditable-field-text {
   margin-left: 3px;
+}
+
+.dnd-icon {
+  cursor: move;
+}
+
+.delete-habit {
+  border: none;
 }

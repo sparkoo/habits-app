@@ -14,6 +14,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AuthService } from './auth/auth.service';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignoutComponent } from './auth/signout/signout.component';
+import { DragulaModule } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SignoutComponent } from './auth/signout/signout.component';
     InlineEditorModule,
     FormsModule,
     ReactiveFormsModule,
+    DragulaModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase)

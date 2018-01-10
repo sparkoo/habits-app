@@ -20,7 +20,7 @@ export class HabitsService {
       .then(insertedHabit => {
         habit.id = insertedHabit.id;
         insertedHabit.update(habit)
-          .then(() => this.getHabits().then(habits => this.habitsChanged.next(habits)))
+          .then(() => this.getHabits().then(habits => this.habitsChanged.next(habits)));
       });
   }
 
@@ -29,6 +29,15 @@ export class HabitsService {
       .update(habit)
       .catch(e => console.log(e));
     this.getHabits().then(habits => this.habitsChanged.next(habits));
+  }
+
+  updateHabits(habits: Array<Habit>) {
+    habits.forEach(habit => {
+      this.habitsCollection.doc(String(habit.id))
+        .update(habit)
+        .catch(e => console.log(e));
+    });
+    this.getHabits().then(receivedHabits => this.habitsChanged.next(receivedHabits));
   }
 
   getHabits(): Promise<Map<string, Habit>> {
@@ -41,13 +50,14 @@ export class HabitsService {
             {
               id: habit['id'],
               userId: habit['userId'],
+              order: habit['order'],
               name: habit['name'],
               goal: habit['goal'],
               progress: habit['progress']
             }));
           resolve(localHabits);
-        })
-    })
+        });
+    });
   }
 
   deleteHabit(habit: Habit) {

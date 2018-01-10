@@ -6,6 +6,7 @@ import { Moment } from 'moment';
 import { InlineEditorEvent } from '@qontu/ngx-inline-editor';
 import { AuthService } from '../auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DragulaService } from 'ng2-dragula';
 
 @Component({
   selector: 'app-weektable',
@@ -22,26 +23,40 @@ export class WeektableComponent implements OnInit {
   newHabitForm: FormGroup;
 
   constructor(private dateService: DateService,
-              private habitsService: HabitsService,
-              private authService: AuthService) {
+    private habitsService: HabitsService,
+    private authService: AuthService,
+    private dragulaService: DragulaService) {
   }
 
   ngOnInit() {
     this.weekDays = this.dateService.currentWeek();
 
+    this.dragulaService.drop.subscribe((value) => {
+      this.updateHabitsOrder();
+    });
+
     this.habitsService.getHabits()
-      .then(habits => habits.forEach(habit => this.habits.push(habit)))
+      .then(this.updateHabitsView)
       .catch(e => console.log(e));
     this.habitsService.habitsChanged
-      .subscribe(habits => {
-        this.habits = [];
-        habits.forEach(habit => this.habits.push(habit));
-      });
+      .subscribe(this.updateHabitsView);
 
     this.newHabitForm = new FormGroup({
       newHabitText: new FormControl('', Validators.required),
       newHabitGoal: new FormControl('1', Validators.min(1))
     });
+  }
+
+  updateHabitsView: (habits: Map<string, Habit>) => void =
+    (habits) => {
+      this.habits = [];
+      habits.forEach(habit => this.habits.push(habit));
+      this.habits.sort((a, b) => a.order - b.order);
+    }
+
+  updateHabitsOrder() {
+    this.habits.forEach((habit, index) => habit.order = index);
+    this.habitsService.updateHabits(this.habits);
   }
 
   saveProgress(habit: Habit, day: Moment, value: number) {
@@ -59,11 +74,12 @@ export class WeektableComponent implements OnInit {
       this.habitsService.createHabit({
         id: '',
         userId: this.authService.signedUser.id,
+        order: 999,
         name: this.newHabitForm.get('newHabitText').value,
         goal: +this.newHabitForm.get('newHabitGoal').value,
         progress: {}
       });
-      this.newHabitForm.reset({newHabitText: '', newHabitGoal: '1'});
+      this.newHabitForm.reset({ newHabitText: '', newHabitGoal: '1' });
     }
   }
 
