@@ -23,7 +23,7 @@
         </th>
       </tr>
       </thead>
-      <tbody [dragula]="habits-bag" [dragulaModel]="habits">
+      <tbody [dragula]='"habits-bag"' [dragulaModel]="habits">
       <tr *ngFor="let habit of habits">
         <td class="thick-border-right">
           <i class="fa fa-list-ul dnd-icon" aria-hidden="true"></i>
