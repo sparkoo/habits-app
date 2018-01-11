@@ -13,6 +13,7 @@ import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { SignoutComponent } from '../auth/signout/signout.component';
 import { mockAngularFireAuth } from '../auth/signout/signout.component.spec';
 import { DragulaModule } from 'ng2-dragula/components/dragular.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('WeektableComponent', () => {
   let component: WeektableComponent;
@@ -26,6 +27,7 @@ describe('WeektableComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         DragulaModule,
+        NgbModule.forRoot(),
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireModule.initializeApp(environment.firebase)

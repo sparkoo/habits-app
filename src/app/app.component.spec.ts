@@ -14,6 +14,8 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignoutComponent } from './auth/signout/signout.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { DragulaModule } from 'ng2-dragula/components/dragular.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,6 +30,7 @@ describe('AppComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         DragulaModule,
+        NgbModule.forRoot(),
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireModule.initializeApp(environment.firebase)
