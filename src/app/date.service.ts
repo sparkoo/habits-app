@@ -7,6 +7,10 @@ export class DateService {
 
   constructor() { }
 
+  static getKeyFromMoment(date: Moment): string {
+    return date.format('YYYY-MM-DD');
+  }
+
   currentWeek(): Array<Moment> {
     const weekDays: Array<moment.Moment> = [];
     let dayOfWeek = this.startOfWeek();
@@ -23,14 +27,6 @@ export class DateService {
   }
 
   private startOfWeek(): moment.Moment {
-    let day = moment().startOf('day');
-    while (day.isoWeekday() != 1) {
-      day = day.subtract(1, 'days');
-    }
-    return day;
-  }
-
-  static getKeyFromMoment(moment: Moment): string {
-    return moment.format('YYYY-MM-DD');
+    return moment().startOf('isoWeek').startOf('day');
   }
 }
