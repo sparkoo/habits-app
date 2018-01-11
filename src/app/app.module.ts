@@ -15,6 +15,7 @@ import { AuthService } from './auth/auth.service';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignoutComponent } from './auth/signout/signout.component';
 import { DragulaModule } from 'ng2-dragula';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DragulaModule } from 'ng2-dragula';
     FormsModule,
     ReactiveFormsModule,
     DragulaModule,
+    NgbModule.forRoot(),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase)

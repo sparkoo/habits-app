@@ -116,4 +116,12 @@ export class WeektableComponent implements OnInit {
   weekGoal(habit: Habit): number {
     return habit.goal * 7;
   }
+
+  percentageProgressDay(habit: Habit, day: Moment): number {
+    return habit.progress[this.getKeyFromMoment(day)] / habit.goal * 100;
+  }
+
+  percentageProgressWeek(habit: Habit) {
+    return this.weekProgress(habit) / this.weekGoal(habit) * 100;
+  }
 }
