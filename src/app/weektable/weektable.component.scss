@@ -1,54 +1,64 @@
 th {
-  font-size: .8rem;
-  color: #878787;
+    font-size: .8rem;
+    color: #878787;
 }
 
 .note {
-  font-size: .7rem;
-  color: #a8a8a8;
+    font-size: .7rem;
+    color: #a8a8a8;
 }
 
 .goal {
-  font-size: .7rem;
-  color: darkgray;
-  font-weight: bolder;
+    font-size: .7rem;
+    color: darkgray;
+    font-weight: bolder;
 }
 
 table td {
-  padding: .2rem;
+    padding: .2rem;
 }
 
 .table {
-  background-color: whitesmoke;
+    background-color: whitesmoke;
 }
 
 .increment-buttons {
-  font-size: .75rem;
-  line-height: 1.5rem;
+    visibility: hidden;
+}
+
+.mousehere .increment-buttons {
+    visibility: visible;
 }
 
 .btn-sm {
-  padding: .1rem .4em;
-  font-size: .75rem;
-  line-height: 1.4;
+    padding: 0 1.2em;
+    font-size: .6rem;
+    margin-top: 2px;
+    line-height: 0;
+    display: block;
+    height: 10px;
 }
 
 .thick-border-right {
-  border-right: darkgray solid 2px;
+    border-right: darkgray solid 2px;
 }
 
 .thick-border-left {
-  border-left: darkgray solid 2px;
+    border-left: darkgray solid 2px;
 }
 
 .uneditable-field-text {
-  margin-left: 3px;
+    margin-left: 3px;
 }
 
 .dnd-icon {
-  cursor: move;
+    cursor: move;
 }
 
 .delete-habit {
-  border: none;
+    border: none;
+}
+
+.col-weekday {
+  width: 100px;
 }

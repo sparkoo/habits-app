@@ -12,7 +12,7 @@
       <thead>
         <tr>
           <th class="thick-border-right" scope="col">Habit</th>
-          <th scope="col" *ngFor="let day of weekDays" [ngClass]="{'table-warning': day.diff(today) === 0}">
+          <th scope="col" *ngFor="let day of weekDays" [ngClass]="{'table-warning': day.diff(today) === 0}" class="col-weekday">
             <span class="note">{{day.format('D.M.')}}</span>
             <br/> {{day.format('dd')}}
           </th>
@@ -32,18 +32,19 @@
           </td>
           <td scope="col" *ngFor="let day of weekDays" [ngClass]="{'table-danger': (!habit.progress[getKeyFromMoment(day)] || habit.progress[getKeyFromMoment(day)] < habit.goal) && day.diff(today) !== 0,
                         'table-success': habit.progress[getKeyFromMoment(day)] && habit.progress[getKeyFromMoment(day)] >= habit.goal,
-                        'table-warning': (!habit.progress[getKeyFromMoment(day)] || habit.progress[getKeyFromMoment(day)] < habit.goal) && day.diff(today) === 0}">
+                        'table-warning': (!habit.progress[getKeyFromMoment(day)] || habit.progress[getKeyFromMoment(day)] < habit.goal) && day.diff(today) === 0}"
+            (mouseenter)="mouseEnter($event)" (mouseleave)="mouseLeave($event)">
             <ngb-progressbar type="info" [value]="percentageProgressDay(habit, day)" height="1px"></ngb-progressbar>
             <inline-editor *ngIf="habit.progress[getKeyFromMoment(day)]" type="number" [(ngModel)]="habit.progress[getKeyFromMoment(day)]"
               (onSave)="saveProgress(habit, day, $event)"></inline-editor>
             <inline-editor *ngIf="!habit.progress[getKeyFromMoment(day)]" type="number" ngModel empty="0" value="0" (onSave)="saveProgress(habit, day, $event)"></inline-editor>
             <span class="goal"> / {{habit.goal}}</span>
             <span class="pull-right increment-buttons">
-              <button class="btn btn-warning btn-sm" (click)="decrement(habit, day)">
-                <i class="fa fa-minus" aria-hidden="true"></i>
-              </button>
               <button class="btn btn-success btn-sm" (click)="increment(habit, day)">
-                <i class="fa fa-plus" aria-hidden="true"></i>
+                <i class="fa fa-caret-up" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-warning btn-sm" (click)="decrement(habit, day)">
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
               </button>
             </span>
           </td>

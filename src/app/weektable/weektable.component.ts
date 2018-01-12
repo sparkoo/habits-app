@@ -7,6 +7,7 @@ import { InlineEditorEvent } from '@qontu/ngx-inline-editor';
 import { AuthService } from '../auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DragulaService } from 'ng2-dragula';
+import { HostListener } from '@angular/core/src/metadata/directives';
 
 @Component({
   selector: 'app-weektable',
@@ -123,5 +124,13 @@ export class WeektableComponent implements OnInit {
 
   percentageProgressWeek(habit: Habit) {
     return this.weekProgress(habit) / this.weekGoal(habit) * 100;
+  }
+
+  mouseEnter(event: MouseEvent) {
+    event.toElement.classList.add('mousehere');
+  }
+
+  mouseLeave(event: MouseEvent) {
+    event.fromElement.classList.remove('mousehere');
   }
 }
