@@ -14,6 +14,8 @@ import { SignoutComponent } from '../auth/signout/signout.component';
 import { mockAngularFireAuth } from '../auth/signout/signout.component.spec';
 import { DragulaModule } from 'ng2-dragula/components/dragular.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('WeektableComponent', () => {
   let component: WeektableComponent;
@@ -23,6 +25,8 @@ describe('WeektableComponent', () => {
     TestBed.configureTestingModule({
       declarations: [WeektableComponent, SignoutComponent],
       imports: [
+        BrowserAnimationsModule,
+        NgxChartsModule,
         InlineEditorModule,
         FormsModule,
         ReactiveFormsModule,

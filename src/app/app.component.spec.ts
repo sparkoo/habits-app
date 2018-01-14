@@ -15,6 +15,7 @@ import { SignoutComponent } from './auth/signout/signout.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { DragulaModule } from 'ng2-dragula/components/dragular.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -26,6 +27,7 @@ describe('AppComponent', () => {
         SignoutComponent
       ],
       imports: [
+        NgxChartsModule,
         InlineEditorModule,
         FormsModule,
         ReactiveFormsModule,
