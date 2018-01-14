@@ -6,40 +6,58 @@
     <app-signout></app-signout>
   </div>
 </div>
+
+<div class="row status-row">
+  <div class="col-md-8"></div>
+  <div class="col-md-4">
+    <ngx-charts-area-chart [results]="graphData"
+                           [autoScale]="false"
+                           [scheme]="graphColors"
+                           [gradient]="true">
+    </ngx-charts-area-chart>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-12">
     <table class="table table-striped table-bordered table-hover">
       <thead>
-        <tr>
-          <th class="thick-border-right" scope="col">Habit</th>
-          <th scope="col" *ngFor="let day of weekDays" [ngClass]="{'table-warning': day.diff(today) === 0}" class="col-weekday">
-            <span class="note">{{day.format('D.M.')}}</span>
-            <br/> {{day.format('dd')}}
-          </th>
-          <th class="thick-border-left" scope="col">
-            Weekly goal
-          </th>
-        </tr>
+      <tr>
+        <th class="thick-border-right" scope="col">Habit</th>
+        <th scope="col" *ngFor="let day of weekDays"
+            [ngClass]="{'table-warning': day.diff(today) === 0}" class="col-weekday">
+          <span class="note">{{day.format('D.M.')}}</span>
+          <br/> {{day.format('dd')}}
+        </th>
+        <th class="thick-border-left" scope="col">
+          Weekly goal
+        </th>
+      </tr>
       </thead>
       <tbody [dragula]='"habits-bag"' [dragulaModel]="habits">
-        <tr *ngFor="let habit of habits">
-          <td class="thick-border-right">
-            <i class="fa fa-list-ul dnd-icon" aria-hidden="true"></i>
-            <inline-editor type="text" size="20" [(ngModel)]="habit.name" (onSave)="saveHabitName(habit, $event)"></inline-editor>
-            <button class="btn btn-outline-danger btn-sm pull-right delete-habit" (click)="deleteHabit(habit)">
-              <i class="fa fa-times" aria-hidden="true"></i>
-            </button>
-          </td>
-          <td scope="col" *ngFor="let day of weekDays" [ngClass]="{'table-danger': (!habit.progress[getKeyFromMoment(day)] || habit.progress[getKeyFromMoment(day)] < habit.goal) && day.diff(today) !== 0,
+      <tr *ngFor="let habit of habits">
+        <td class="thick-border-right">
+          <i class="fa fa-list-ul dnd-icon" aria-hidden="true"></i>
+          <inline-editor type="text" size="20" [(ngModel)]="habit.name"
+                         (onSave)="saveHabitName(habit, $event)"></inline-editor>
+          <button class="btn btn-outline-danger btn-sm pull-right delete-habit"
+                  (click)="deleteHabit(habit)">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td scope="col" *ngFor="let day of weekDays" [ngClass]="{'table-danger': (!habit.progress[getKeyFromMoment(day)] || habit.progress[getKeyFromMoment(day)] < habit.goal) && day.diff(today) !== 0,
                         'table-success': habit.progress[getKeyFromMoment(day)] && habit.progress[getKeyFromMoment(day)] >= habit.goal,
                         'table-warning': (!habit.progress[getKeyFromMoment(day)] || habit.progress[getKeyFromMoment(day)] < habit.goal) && day.diff(today) === 0}"
             (mouseenter)="mouseEnter($event)" (mouseleave)="mouseLeave($event)">
-            <ngb-progressbar type="info" [value]="percentageProgressDay(habit, day)" height="1px"></ngb-progressbar>
-            <inline-editor *ngIf="habit.progress[getKeyFromMoment(day)]" type="number" [(ngModel)]="habit.progress[getKeyFromMoment(day)]"
-              (onSave)="saveProgress(habit, day, $event)"></inline-editor>
-            <inline-editor *ngIf="!habit.progress[getKeyFromMoment(day)]" type="number" ngModel empty="0" value="0" (onSave)="saveProgress(habit, day, $event)"></inline-editor>
-            <span class="goal"> / {{habit.goal}}</span>
-            <span class="pull-right increment-buttons">
+          <ngb-progressbar type="info" [value]="percentageProgressDay(habit, day)"
+                           height="1px"></ngb-progressbar>
+          <inline-editor *ngIf="habit.progress[getKeyFromMoment(day)]" type="number"
+                         [(ngModel)]="habit.progress[getKeyFromMoment(day)]"
+                         (onSave)="saveProgress(habit, day, $event)"></inline-editor>
+          <inline-editor *ngIf="!habit.progress[getKeyFromMoment(day)]" type="number" ngModel
+                         empty="0" value="0"
+                         (onSave)="saveProgress(habit, day, $event)"></inline-editor>
+          <span class="goal"> / {{habit.goal}}</span>
+          <span class="pull-right increment-buttons">
               <button class="btn btn-success btn-sm" (click)="increment(habit, day)">
                 <i class="fa fa-caret-up" aria-hidden="true"></i>
               </button>
@@ -47,13 +65,14 @@
                 <i class="fa fa-caret-down" aria-hidden="true"></i>
               </button>
             </span>
-          </td>
-          <td class="thick-border-left">
-            <ngb-progressbar type="info" [value]="percentageProgressWeek(habit)" height="1px"></ngb-progressbar>
-            <span class="uneditable-field-text"></span>{{weekProgress(habit)}}
-            <span class="goal"> / {{weekGoal(habit)}}</span>
-          </td>
-        </tr>
+        </td>
+        <td class="thick-border-left">
+          <ngb-progressbar type="info" [value]="percentageProgressWeek(habit)"
+                           height="1px"></ngb-progressbar>
+          <span class="uneditable-field-text"></span>{{weekProgress(habit)}}
+          <span class="goal"> / {{weekGoal(habit)}}</span>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>
@@ -63,17 +82,20 @@
     <form novalidate [formGroup]="newHabitForm" (ngSubmit)="newHabitSubmitted()">
       <div class="form-row">
         <div class="form-group col-md-6">
-          <input type="text" class="form-control" id="newHabitText" placeholder="new habit" formControlName="newHabitText" />
+          <input type="text" class="form-control" id="newHabitText" placeholder="new habit"
+                 formControlName="newHabitText"/>
         </div>
         <div class="form-group col-md-4">
-          <input type="number" class="form-control" id="newHabitGoal" placeholder="1" min="1" formControlName="newHabitGoal" />
+          <input type="number" class="form-control" id="newHabitGoal" placeholder="1" min="1"
+                 formControlName="newHabitGoal"/>
         </div>
         <div class="col-md-2">
           <button class="btn btn-success" type="submit">add</button>
         </div>
       </div>
     </form>
-    <div class="alert alert-danger" role="alert" *ngIf="newHabitForm.invalid && newHabitForm.touched">
+    <div class="alert alert-danger" role="alert"
+         *ngIf="newHabitForm.invalid && newHabitForm.touched">
       Invalid form!
     </div>
   </div>

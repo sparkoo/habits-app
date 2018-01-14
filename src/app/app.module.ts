@@ -16,6 +16,8 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignoutComponent } from './auth/signout/signout.component';
 import { DragulaModule } from 'ng2-dragula';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    NgxChartsModule,
     InlineEditorModule,
     FormsModule,
     ReactiveFormsModule,

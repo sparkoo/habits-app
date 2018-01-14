@@ -7,7 +7,7 @@ import { InlineEditorEvent } from '@qontu/ngx-inline-editor';
 import { AuthService } from '../auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DragulaService } from 'ng2-dragula';
-import { HostListener } from '@angular/core/src/metadata/directives';
+import moment = require('moment');
 
 @Component({
   selector: 'app-weektable',
@@ -23,16 +23,23 @@ export class WeektableComponent implements OnInit {
 
   newHabitForm: FormGroup;
 
+  graphView: any[] = [300, 75];
+  graphData = [
+    { 'name': 'goal', 'series': [] },
+    { 'name': 'progress', 'series': [] }
+  ];
+  graphColors = { domain: ['#f5c6cb', '#c3e6cb'] };
+
   constructor(private dateService: DateService,
-    private habitsService: HabitsService,
-    private authService: AuthService,
-    private dragulaService: DragulaService) {
+              private habitsService: HabitsService,
+              private authService: AuthService,
+              private dragulaService: DragulaService) {
   }
 
   ngOnInit() {
     this.weekDays = this.dateService.currentWeek();
 
-    this.dragulaService.drop.subscribe((value) => {
+    this.dragulaService.drop.subscribe(() => {
       this.updateHabitsOrder();
     });
 
@@ -53,7 +60,8 @@ export class WeektableComponent implements OnInit {
       this.habits = [];
       habits.forEach(habit => this.habits.push(habit));
       this.habits.sort((a, b) => a.order - b.order);
-    }
+      this.initGraphData();
+    };
 
   updateHabitsOrder() {
     this.habits.forEach((habit, index) => habit.order = index);
@@ -132,5 +140,22 @@ export class WeektableComponent implements OnInit {
 
   mouseLeave(event: MouseEvent) {
     event.fromElement.classList.remove('mousehere');
+  }
+
+  private initGraphData() {
+    const graphData = [
+      { 'name': 'goal', 'series': [] },
+      { 'name': 'progress', 'series': [] }
+    ];
+    const dailyGoal = this.habits.map(habit => habit.goal).reduce((a, b) => a + b);
+    this.weekDays.forEach(day => {
+      const dayProgress = this.habits
+        .filter(habit => habit.progress[this.getKeyFromMoment(day)])
+        .map(habit => habit.progress[this.getKeyFromMoment(day)])
+        .reduce((a, b) => a + b);
+      graphData[0].series.push({ 'name': String(day.unix()), 'value': dailyGoal });
+      graphData[1].series.push({ 'name': String(day.unix()), 'value': dayProgress });
+    });
+    this.graphData = graphData;
   }
 }

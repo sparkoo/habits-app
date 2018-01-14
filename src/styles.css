@@ -43,7 +43,6 @@ a.c-inline-editor {
 
 .c-inline-editor.inlineEditForm input,
 .c-inline-editor.select {
-  width: auto;
   display: inline;
 }
 
