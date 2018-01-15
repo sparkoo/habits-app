@@ -7,6 +7,7 @@ import { InlineEditorEvent } from '@qontu/ngx-inline-editor';
 import { AuthService } from '../auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DragulaService } from 'ng2-dragula';
+import moment = require('moment');
 
 @Component({
   selector: 'app-weektable',
@@ -154,5 +155,20 @@ export class WeektableComponent implements OnInit {
       graphData[1].series.push({ 'name': String(day.unix()), 'value': dayProgress });
     });
     this.graphData = graphData;
+  }
+
+  previousWeek() {
+    this.weekDays = this.dateService.previousWeekOf(this.weekDays[0].clone());
+    this.initGraphData();
+  }
+
+  nextWeek() {
+    this.weekDays = this.dateService.nextWeekOf(this.weekDays[0].clone());
+    this.initGraphData();
+  }
+
+  thisWeek() {
+    this.weekDays = this.dateService.currentWeek();
+    this.initGraphData();
   }
 }
