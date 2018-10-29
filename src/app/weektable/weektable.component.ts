@@ -115,7 +115,7 @@ export class WeektableComponent implements OnInit {
 
   weekProgress(habit: Habit): number {
     let weekProgress = 0;
-    this.dateService.currentWeek()
+    this.weekDays
       .filter(day => habit.progress[DateService.getKeyFromMoment(day)])
       .forEach(day => weekProgress += habit.progress[DateService.getKeyFromMoment(day)]);
     return weekProgress;
